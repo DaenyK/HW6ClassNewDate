@@ -1,4 +1,4 @@
-#include "dates.h"
+#include "newDates.h"
 
 date::date(int day, int month, int year)
 {
@@ -100,6 +100,60 @@ bool date :: operator ==(date obj)
 		}
 	}
 	else return false;
+}
+
+bool date::operator!=(date obj)
+{
+	if (this->day != obj.day)
+		return true;
+	else if (this->month != obj.month)
+		return true;
+	else if (this->year != obj.year)
+		return true;
+
+	else return false;
+}
+
+bool date::operator>(date obj)
+{
+	if (this->year > obj.year)
+		return true;
+	else if (this->year == obj.year)
+	{
+		if(this->month>obj.month)
+			return true;
+		else if (this->month == obj.month)
+		{
+			if (this->day > obj.day)
+				return true;
+			else  if (this->day == obj.day)
+				cout << "\nдаты одинаковы\n";
+			else return false;
+		}
+		else return false;
+	}
+	else return false;
+}
+
+bool date::operator<(date obj)
+{
+	int result = *this > obj;
+	if (result == 1)
+		return false;
+	else
+		return true;
+}
+
+date date::operator++()
+{
+	*this += 1;
+	return *this;
+}
+
+date date::operator--()
+{
+	*this -= 1;
+	return *this;
 }
 
 date date::operator+=(int day)
@@ -444,3 +498,57 @@ date date::operator+(date obj)
 	return buf;
 }
 
+date date::operator-(date obj)
+{
+	date buf;
+	buf.year = this->year - obj.year;
+	if (buf.year < 0)
+	{
+		cout << "\nошибка: год отрицательный\n";
+		EXIT_FAILURE;
+	}
+	buf.month = this->month - obj.month;
+	if (buf.month < 0)
+	{
+		buf.month = 12 + buf.month;
+		buf.year--;
+	}
+	else if (buf.month == 0)
+	{
+		buf.month = 12;//или тут 1?
+		buf.year--;
+	}
+
+	buf.day = this->day - obj.day;
+	if (buf.day < 0)
+	{
+		if (((buf.month == 12 || buf.month == 3 || buf.month == 5 || buf.month == 7
+			|| buf.month == 8 || buf.month == 10)))
+		{
+			buf.day = 31 + buf.day;
+			buf.month--;
+		}
+		else if (((buf.month == 4 || buf.month == 6 || buf.month == 9 || buf.month == 11)))
+		{
+			buf.day = 30 + buf.day;
+			buf.month--;
+		}
+		else if ((buf.month == 1))
+		{
+			buf.day = 31 + buf.day;
+			buf.month = 12;
+			buf.year--;
+		}
+		else if ((buf.month == 2) && (leap(buf.year)))
+		{
+			buf.day = 29 + buf.day;
+			buf.month--;
+		}
+		else if (buf.day > 28 && ((buf.month == 2)) && !(leap(buf.year)))
+		{
+			buf.day = 28 + buf.day;
+			buf.month--;
+		}
+	}
+	return buf;
+}

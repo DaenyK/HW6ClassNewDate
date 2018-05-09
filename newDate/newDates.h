@@ -1,5 +1,4 @@
-#ifndef _DATES_H_
-#define _DATES_H_
+#pragma once
 #include "Headers.h"
 
 class date
@@ -19,8 +18,14 @@ public:
 
 	bool leap(int year);
 	bool sameDate(int day, int month, int year);
+	
 	bool operator==(date obj);
+	bool operator!=(date obj);
+	bool operator>(date obj);
+	bool operator<(date obj);
 
+	date operator++();
+	date operator--();
 	date operator+=(int day);
 	date operator-=(int day);
 
@@ -29,6 +34,3 @@ public:
 
 
 };
-
-
-#endif
