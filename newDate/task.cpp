@@ -1,6 +1,6 @@
 #include "newDates.h"
 
-int main()
+void main()
 {
 	setlocale(LC_ALL, "Rus");
 	short nz, answer;
@@ -10,8 +10,8 @@ int main()
 	do
 	{
 		cout << "Создайте класс с именем Date  для хранения даты. В классе должна быть" << endl
-			<< "функция-член, которая увеличивает день на 1.Напишите соответствующие "<<endl
-			<<"конструкторы и функции-члены. В классе должны быть перегружены операциии\n\n";
+			<< "функция-член, которая увеличивает день на 1.Напишите соответствующие " << endl
+			<< "конструкторы и функции-члены. В классе должны быть перегружены операциии\n\n";
 		cout << "1 - ++ \t\t 2 - -- \t\t 3 - != \n4 - == \t\t 5 -  > \t\t 6 - <\n";
 		cout << "7 - >> \t\t 8 - << \t\t 9 - = \n10 - += \t 11 - -= \t\t 12 - ()\n0 - выход\n\n";
 
@@ -24,7 +24,7 @@ int main()
 		{
 			exit(0);
 		}break;
-		
+
 		case 1:
 		{
 			cout << "введите дату(н. 12.12.2012): "; cin >> day >> s >> month >> s >> year;
@@ -64,7 +64,7 @@ int main()
 				cout << "\nэти две даты одинаковые\n";
 			else 	cout << "\nэти две даты НЕ одинаковые\n";
 		}break;
-		
+
 		case 5:
 		{
 			cout << "enter the first date(12.12.2012): "; cin >> day >> s >> month >> s >> year;
@@ -99,6 +99,30 @@ int main()
 			}
 		}break;
 
+		case 7:
+		{
+			cout << "считывание дат из файла dates.txt\n";
+			date * d;
+			int  count = 5;
+			ifstream inFile("dates.txt");
+			d = new date[count];
+			for (int i = 0; i < 5; i++)
+				inFile >> d[i];
+			printDates(d, 5);
+			inFile.close();
+		}break;
+
+
+		case 9:
+		{
+			cout << "введите дату(н. 12.12.2012): "; cin >> day >> s >> month >> s >> year;
+			date two(day, month, year);
+			date one = two;
+			one = two;
+			cout << "использование оператора =: ";
+			cout << one.getDay() << "." << one.getMonth() << "." << one.getYear() << endl;
+		}break;
+
 		case 10:
 		{
 			int num;
@@ -121,6 +145,17 @@ int main()
 			cout << one.getDay() << "." << one.getMonth() << "." << one.getYear() << endl;
 		}break;
 
+		case 12:
+		{
+			cout << "введите дату(н. 12.12.2012): "; cin >> day >> s >> month >> s >> year;
+			date two(day, month, year);
+			date one;
+			one.operator()(two);
+			one = two;
+			cout << "использование оператора (): ";
+			cout << one.getDay() << "." << one.getMonth() << "." << one.getYear() << endl;
+		}break;
+
 
 		}
 
@@ -131,5 +166,4 @@ int main()
 	} while (answer != 0);
 	system("pause");
 
-	return 0;
 }

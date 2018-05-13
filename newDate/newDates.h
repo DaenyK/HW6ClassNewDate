@@ -28,9 +28,14 @@ public:
 	date operator--();
 	date operator+=(int day);
 	date operator-=(int day);
+	date operator=(date obj);
 
 	date operator+(date obj);
 	date operator-(date obj);
 
-
+	friend void  operator>>(istream&is, date&obj);
+	friend void operator<<(ostream&os, date&obj);
+	
+	friend void printDates(date *d, int size);
+	void operator()(date obj);
 };

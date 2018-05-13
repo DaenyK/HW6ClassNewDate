@@ -120,7 +120,7 @@ bool date::operator>(date obj)
 		return true;
 	else if (this->year == obj.year)
 	{
-		if(this->month>obj.month)
+		if (this->month > obj.month)
 			return true;
 		else if (this->month == obj.month)
 		{
@@ -454,6 +454,14 @@ date date::operator-=(int day)
 
 }
 
+date date::operator=(date obj)
+{
+	this->day = obj.day;
+	this->month = obj.month;
+	this->year = obj.year;
+	return *this;
+}
+
 date date::operator+(date obj)
 {
 	date buf;
@@ -551,4 +559,30 @@ date date::operator-(date obj)
 		}
 	}
 	return buf;
+}
+
+void date::operator()(date obj)
+{
+	this->day = obj.day;
+	this->month = obj.month;
+	this->year = obj.year;
+}
+
+
+
+void  operator >> (istream & is, date & obj)
+{
+	char s;
+	is >> obj.day >> s >> obj.month >> s >> obj.year;
+}
+
+void operator <<(ostream & os, date & obj)
+{
+
+}
+
+void printDates(date * d, int size)
+{
+	for (int i = 0; i < size; i++)
+		cout << d[i].day << "." << d[i].month << "." << d[i].year << endl;
 }
